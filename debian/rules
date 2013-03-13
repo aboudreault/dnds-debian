@@ -1,0 +1,60 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+#
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# This has to be exported to make some magic below work.
+export DH_OPTIONS
+
+CMAKE_OPTS := \
+	-D CMAKE_INSTALL_PREFIX=$(CURDIR)debian/tmp/usr
+
+debian/build/CMakeCache.txt:
+	dh_testdir
+	# Add here commands to configure the package.
+#	[ -d debian/build ] || mkdir debian/build
+	[ ! -e CMakeCache.txt ] || rm CMakeCache.txt
+	cd libdnds; cmake $(CMAKE_OPTS) .
+
+build: build-stamp
+
+build-stamp: udt4 debian/build/CMakeCache.txt
+	dh_testdir
+
+	# Add here commands to compile the package.
+	$(MAKE) -C libdnds
+
+	touch $@
+
+udt4:
+	$(MAKE) -C udt4
+
+binary:
+	$(MAKE) -C libdnds install
+
+clean: 
+	dh_testdir
+	dh_testroot
+	rm -rf debian/tmp
+
+.PHONY: clean build udt4
+
+# %:
+# 	dh $@ 
+
+# override_dh_auto_build:
+# 	dh_auto_build
+# 	# Make apache module
+# 	$(MAKE) libdir=$(CURDIR)/lib module
+
+# override_dh_auto_install:
+# 	$(MAKE) prefix=$(CURDIR)/debian/tmp/usr exec_prefix=$(CURDIR)/debian/tmp/usr install-lib install-util install-cgi
+# 	# Install apache module
+# 	install -d $(CURDIR)/debian/tmp/etc/apache2/mods-available
+# 	install -m 644 debian/mapcache.load $(CURDIR)/debian/tmp/etc/apache2/mods-available
+# 	install -d $(CURDIR)/debian/tmp/usr/lib/apache2/modules
+# 	install -m 644 apache/.libs/mod_mapcache.so $(CURDIR)/debian/tmp/usr/lib/apache2/modules
+# 	dh_install --sourcedir debian/tmp

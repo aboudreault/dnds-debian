@@ -1,0 +1,19 @@
+Source: dnds
+Section: devel
+Priority: extra
+Maintainer: Alan Boudreault <boudreault.alan@gmail.com>
+Build-Depends: debhelper (>= 8), cmake, libssl-dev 
+Standards-Version: 3.8.4
+Homepage: http://www.dynvpn.com/
+
+Package: libdnds
+Section: misc
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Dynamic Network Directory Service 
+
+Package: dnds-bin
+Section: misc
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libmapcache
+Description: Dynamic Network Client
