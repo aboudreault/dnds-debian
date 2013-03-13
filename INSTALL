@@ -1,0 +1,98 @@
+
+ INSTALLATION ON THE LINUX PLATEFORM
+ -----------------------------------
+
+ To install DNDS you will need:
+
+  * CMake 2.6 or higher
+
+ Quick Start
+ -----------
+
+ apt-get install cmake
+ apt-get install libpq-dev
+ apt-get install libossp-uuid-dev
+ apt-get install libossp-uuid-dev
+
+ Getting UDT
+ -----------
+
+	wget http://downloads.sourceforge.net/udt/udt.sdk.4.10.tar.gz
+
+ Installing UDT
+ --------------
+
+ Copy the udt patch from DNDS/patch/udt4.9_ext_ptr.patch next to
+ your UDT directory.
+
+	$ ls
+	udt4  udt4.9_ext_ptr.patch
+
+ Apply the patch.
+
+	$ patch -p0 < udt4.9_ext_ptr.patch
+
+ You can now build udt by invoking `make`. You DON'T NEED to `make install` it.
+
+ Installing libdnds
+ -----------------
+
+	 $ cd DNDS/libdnds/
+	 $ cmake .
+	 $ make
+	 $ sudo make install
+
+ Installing DSD - Directory Service Daemon
+ ---------------------------------------
+
+	 $ cd DNDS/dsd
+	 $ cmake .
+	 $ make
+	 $ sudo make install
+
+
+ Installing DND - Dynamic Network Daemon
+ ---------------------------------------
+
+	 $ cd DNDS/dnd
+	 $ cmake .
+	 $ make
+	 $ sudo make install
+
+
+ Installing DNC - Dynamic Network Client
+ ---------------------------------------
+
+	 $ cd DNDS/dnc
+	 $ cmake .
+	 $ make
+	 $ sudo make install
+
+
+ Database - postgresql
+ ---------------------------------------
+ apt-get install postgresql
+ apt-get install postgresql-contrib
+
+	# You first need to log into postgreSQL with the user 'postgres'
+		$ su - postgres
+		$ psql
+
+	# Load the pgcrypto module
+	\i /usr/share/postgresql/8.4/contrib/pgcrypto.sql
+
+	# Create the 'dnds' user
+	CREATE USER dnds WITH CREATEDB PASSWORD 'a_strong_password';
+	\du
+
+	# Now log into postgreSQL using your 'dnds' user, into the 'postgres' database
+	psql --host=127.0.0.1 -U dnds -W postgres
+
+	# Create the 'dnds' database container
+	CREATE DATABASE dnds;
+	\l
+	\c dnds;
+
+	# Load the 'dnds' schema into the 'dnds' database container
+	psql --host=127.0.0.1 -U dnds -W < dnds.sql
+	\dt
