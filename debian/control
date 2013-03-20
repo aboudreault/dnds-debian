@@ -12,8 +12,8 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Dynamic Network Directory Service 
 
-Package: dnds-bin
+Package: dnds-client
 Section: misc
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libmapcache
+Depends: ${shlibs:Depends}, ${misc:Depends}, libdnds
 Description: Dynamic Network Client
