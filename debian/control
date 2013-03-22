@@ -15,5 +15,5 @@ Description: Dynamic Network Directory Service
 Package: dnds-client
 Section: misc
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libdnds
+Depends: libdnds, ${shlibs:Depends}, ${misc:Depends}
 Description: Dynamic Network Client
