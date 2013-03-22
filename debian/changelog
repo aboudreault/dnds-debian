@@ -1,4 +1,4 @@
-dnds (0~git3ecd1a6e-1) squeeze; urgency=low
+dnds (0~git3ecd1a6e-3~lucid1) lucid; urgency=medium
 
   * Initial release.
 

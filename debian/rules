@@ -27,7 +27,8 @@ build-stamp: udt4 CMakeCache.txt libdnds/CMakeCache.txt dnc/CMakeCache.txt
 udt4:
 	$(MAKE) -C udt4
 
-binary:
+binary: binary-arch
+binary-arch:
 	dh_testdir -a
 	dh_testroot -a
 	$(MAKE) -C . install
@@ -51,5 +52,5 @@ clean:
 	dh_testroot
 	rm -rf debian/tmp
 
-.PHONY: clean build udt4
+.PHONY: clean build binary binary-arch udt4
 
